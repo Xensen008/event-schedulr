@@ -140,15 +140,15 @@ export default function EventsPage() {
                   </div>
                 )}
               </div>
-              <div className="h-35 w-35">
-                {each.logo && (
+              {/* <div className="h-35 w-35">
+                {each.eventImage && (
                   <img
-                    src={each.logo}
+                    src={each.eventImage ?? ""}
                     className="h-35 w-35 rounded-lg"
                     alt=""
                   />
                 )}
-              </div>
+              </div> */}
             </Link>
           ))}
         </div>
