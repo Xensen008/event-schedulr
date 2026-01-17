@@ -2,7 +2,7 @@
 
 import { api } from "@event-schedulr/backend/convex/_generated/api";
 import { useQuery } from "convex/react";
-import { Calendar, Clock, MapPin, User, Plus } from "lucide-react";
+import { Calendar, Clock, MapPin, Plus, User } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -102,7 +102,7 @@ export default function SchedulePage() {
 	if (currentEvent === undefined || sessions === undefined) {
 		return (
 			<div className="eve w-full text-white">
-				<div className="mx-auto container w-full space-y-6 py-10">
+				<div className="container mx-auto w-full space-y-6 py-10">
 					<Card>
 						<CardContent className="py-10 text-center">
 							<p className="text-muted-foreground">Loading schedule...</p>
@@ -116,11 +116,11 @@ export default function SchedulePage() {
 	if (!currentEvent) {
 		return (
 			<div className="eve w-full text-white">
-				<div className="mx-auto container w-full space-y-6 py-10">
+				<div className="container mx-auto w-full space-y-6 py-10">
 					<Card>
 						<CardContent className="py-16 text-center">
 							<Calendar className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-							<h3 className="mb-2 text-lg font-semibold">No current event</h3>
+							<h3 className="mb-2 font-semibold text-lg">No current event</h3>
 							<p className="mb-6 text-muted-foreground">
 								Set a current event to view its schedule
 							</p>
@@ -137,11 +137,11 @@ export default function SchedulePage() {
 	);
 
 	return (
-		<div className="eve w-full text-white min-h-screen">
-			<div className="mx-auto container w-full space-y-6 py-10 px-4">
+		<div className="eve min-h-screen w-full text-white">
+			<div className="container mx-auto w-full space-y-6 px-4 py-10">
 				<div className="flex items-center justify-between">
 					<div className="space-y-1">
-						<h1 className="flex items-center gap-2 text-3xl font-bold">
+						<h1 className="flex items-center gap-2 font-bold text-3xl">
 							<Calendar className="h-6 w-6" />
 							Schedule
 						</h1>
@@ -150,7 +150,10 @@ export default function SchedulePage() {
 						</p>
 					</div>
 					<div className="flex items-center gap-4">
-						<Select value={selectedEventFilter} onValueChange={(value) => setSelectedEventFilter(value || "all")}>
+						<Select
+							value={selectedEventFilter}
+							onValueChange={(value) => setSelectedEventFilter(value || "all")}
+						>
 							<SelectTrigger className="w-[140px] rounded-xl">
 								<SelectValue />
 							</SelectTrigger>
@@ -172,18 +175,20 @@ export default function SchedulePage() {
 				{(currentSession || nextSession) && (
 					<div className="grid gap-4 sm:grid-cols-2">
 						{currentSession && (
-							<Card className="bg-green-600/20 border-green-500/50 rounded-2xl">
+							<Card className="rounded-2xl border-green-500/50 bg-green-600/20">
 								<CardHeader>
 									<div className="flex items-center gap-2">
-										<div className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
-										<CardTitle className="text-green-400">HAPPENING NOW</CardTitle>
+										<div className="h-3 w-3 animate-pulse rounded-full bg-red-500" />
+										<CardTitle className="text-green-400">
+											HAPPENING NOW
+										</CardTitle>
 									</div>
 								</CardHeader>
 								<CardContent>
-									<h3 className="text-xl font-semibold mb-2">
+									<h3 className="mb-2 font-semibold text-xl">
 										{currentSession.title}
 									</h3>
-									<div className="flex items-center gap-4 text-sm text-green-200">
+									<div className="flex items-center gap-4 text-green-200 text-sm">
 										<span className="flex items-center gap-1">
 											<Clock className="h-4 w-4" />
 											{formatTime(currentSession.startTime)} -{" "}
@@ -201,7 +206,7 @@ export default function SchedulePage() {
 						)}
 
 						{nextSession && (
-							<Card className="bg-blue-600/20 border-blue-500/50 rounded-2xl">
+							<Card className="rounded-2xl border-blue-500/50 bg-blue-600/20">
 								<CardHeader>
 									<div className="flex items-center gap-2">
 										<div className="h-3 w-3 rounded-full bg-orange-500" />
@@ -209,10 +214,10 @@ export default function SchedulePage() {
 									</div>
 								</CardHeader>
 								<CardContent>
-									<h3 className="text-xl font-semibold mb-2">
+									<h3 className="mb-2 font-semibold text-xl">
 										{nextSession.title}
 									</h3>
-									<div className="flex items-center gap-4 text-sm text-blue-200">
+									<div className="flex items-center gap-4 text-blue-200 text-sm">
 										<span className="flex items-center gap-1">
 											<Clock className="h-4 w-4" />
 											{formatTime(nextSession.startTime)} -{" "}
@@ -238,9 +243,9 @@ export default function SchedulePage() {
 
 						return (
 							<div key={dateKey} className="space-y-4">
-								<div className="relative flex items-center justify-center my-8">
+								<div className="relative my-8 flex items-center justify-center">
 									<div className="absolute inset-0 flex items-center">
-										<div className="w-full border-t border-primary/30" />
+										<div className="w-full border-primary/30 border-t" />
 									</div>
 									<div className="relative bg-bg-main px-4">
 										<span className="text-muted-foreground text-sm">
@@ -251,31 +256,34 @@ export default function SchedulePage() {
 
 								<div className="space-y-4">
 									{dateSessions.map((session) => (
-										<Card key={session._id} className="bg-bg-card rounded-2xl border border-border/50">
+										<Card
+											key={session._id}
+											className="rounded-2xl border border-border/50 bg-bg-card"
+										>
 											<CardContent className="p-6">
 												<div className="flex gap-6">
-													<div className="flex flex-col items-center min-w-[100px]">
-														<div className="text-sm font-medium">
+													<div className="flex min-w-[100px] flex-col items-center">
+														<div className="font-medium text-sm">
 															{formatTime(session.startTime)}
 														</div>
-														<div className="text-sm text-muted-foreground">
+														<div className="text-muted-foreground text-sm">
 															{formatTime(session.endTime)}
 														</div>
 													</div>
 													<div className="flex-1 space-y-2">
 														<div className="flex items-start justify-between">
 															<div>
-																<h3 className="text-lg font-semibold">
+																<h3 className="font-semibold text-lg">
 																	{session.title}
 																</h3>
 																{session.description && (
-																	<p className="text-sm text-muted-foreground mt-1">
+																	<p className="mt-1 text-muted-foreground text-sm">
 																		{session.description}
 																	</p>
 																)}
 															</div>
 														</div>
-														<div className="flex items-center gap-4 text-sm text-muted-foreground">
+														<div className="flex items-center gap-4 text-muted-foreground text-sm">
 															{session.location && (
 																<span className="flex items-center gap-1">
 																	<MapPin className="h-4 w-4" />
@@ -289,12 +297,18 @@ export default function SchedulePage() {
 																</span>
 															)}
 														</div>
-														<div className="flex items-center gap-2 mt-3">
-															<Badge variant={getTypeBadgeVariant(session.type)} className="rounded-lg">
+														<div className="mt-3 flex items-center gap-2">
+															<Badge
+																variant={getTypeBadgeVariant(session.type)}
+																className="rounded-lg"
+															>
 																{session.type.charAt(0).toUpperCase() +
 																	session.type.slice(1)}
 															</Badge>
-															<Badge variant={getStatusBadgeVariant(session.status)} className="rounded-lg">
+															<Badge
+																variant={getStatusBadgeVariant(session.status)}
+																className="rounded-lg"
+															>
 																{session.status.charAt(0).toUpperCase() +
 																	session.status.slice(1)}
 															</Badge>
@@ -312,7 +326,9 @@ export default function SchedulePage() {
 					<Card className="rounded-2xl">
 						<CardContent className="py-16 text-center">
 							<Calendar className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-							<h3 className="mb-2 text-lg font-semibold">No sessions scheduled</h3>
+							<h3 className="mb-2 font-semibold text-lg">
+								No sessions scheduled
+							</h3>
 							<p className="mb-6 text-muted-foreground">
 								Create your first session to get started
 							</p>

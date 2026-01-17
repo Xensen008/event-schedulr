@@ -8,8 +8,8 @@ import {
 	Clock,
 	FileText,
 	MapPin,
-	User,
 	Sparkles,
+	User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -122,7 +122,7 @@ export default function CreateSchedulePage() {
 	if (currentEvent === undefined) {
 		return (
 			<div className="eve w-full text-white">
-				<div className="mx-auto container w-full space-y-6 py-10">
+				<div className="container mx-auto w-full space-y-6 py-10">
 					<Card>
 						<CardContent className="py-10 text-center">
 							<p className="text-muted-foreground">Loading...</p>
@@ -135,11 +135,11 @@ export default function CreateSchedulePage() {
 
 	if (!currentEvent) {
 		return (
-			<div className="eve w-full text-white ">
-				<div className="mx-auto container w-full space-y-6 py-10">
+			<div className="eve w-full text-white">
+				<div className="container mx-auto w-full space-y-6 py-10">
 					<Card>
 						<CardContent className="py-16 text-center">
-							<h3 className="mb-2 text-lg font-semibold">No current event</h3>
+							<h3 className="mb-2 font-semibold text-lg">No current event</h3>
 							<p className="mb-6 text-muted-foreground">
 								Set a current event to create sessions
 							</p>
@@ -151,8 +151,8 @@ export default function CreateSchedulePage() {
 	}
 
 	return (
-		<div className="eve w-full text-white min-h-screen">
-			<div className="mx-auto container w-full max-w-4xl space-y-6 py-10 px-4">
+		<div className="eve min-h-screen w-full text-white">
+			<div className="container mx-auto w-full max-w-4xl space-y-6 px-4 py-10">
 				<Card className="rounded-2xl border-none bg-transparent">
 					<CardHeader>
 						<div className="flex items-center gap-2">
@@ -166,7 +166,7 @@ export default function CreateSchedulePage() {
 					<CardContent>
 						<form onSubmit={handleSubmit} className="space-y-6">
 							<div className="space-y-2">
-								<Label htmlFor="title" className="text-lg font-semibold">
+								<Label htmlFor="title" className="font-semibold text-lg">
 									Session Title *
 								</Label>
 								<Input
@@ -176,13 +176,13 @@ export default function CreateSchedulePage() {
 										setFormData({ ...formData, title: e.target.value })
 									}
 									placeholder="Keynote: Future of Technology"
-									className="h-12 text-base rounded-xl"
+									className="h-12 rounded-xl text-base"
 									required
 								/>
 							</div>
 
 							<div className="space-y-2">
-								<Label htmlFor="description" className="text-lg font-semibold">
+								<Label htmlFor="description" className="font-semibold text-lg">
 									Description (optional)
 								</Label>
 								<Textarea
@@ -196,32 +196,32 @@ export default function CreateSchedulePage() {
 								/>
 							</div>
 
-							<div className="w-full rounded-xl flex items-center bg-bg-input p-4 space-y-3">
-								<div className="flex flex-col items-center w-full gap-4">
-									<div className="w-full max-w-md rounded-xl p-5 shadow-lg font-sans relative">
-										<div className="absolute left-6.25 top-11 bottom-11 border-l border-dashed border-muted-foreground/30 z-0"></div>
+							<div className="flex w-full items-center space-y-3 rounded-xl bg-bg-input p-4">
+								<div className="flex w-full flex-col items-center gap-4">
+									<div className="relative w-full max-w-md rounded-xl p-5 font-sans shadow-lg">
+										<div className="absolute top-11 bottom-11 left-6.25 z-0 border-muted-foreground/30 border-l border-dashed" />
 
-										<div className="relative flex items-center justify-between mb-6 z-10">
+										<div className="relative z-10 mb-6 flex items-center justify-between">
 											<div className="flex items-center gap-3">
-												<div className="w-2.5 h-2.5 rounded-full bg-white"></div>
-												<label className="text-text-primary font-medium">
+												<div className="h-2.5 w-2.5 rounded-full bg-white" />
+												<label className="font-medium text-text-primary">
 													Start
 												</label>
 											</div>
 
 											<div className="flex gap-2">
-												<div className="relative group">
-													<div className="flex items-center bg-bg-card rounded-lg overflow-hidden border border-border/50 group-hover:border-white/10 transition-colors">
-														<div className="px-3 py-1.5 text-text-primary text-sm border-r border-border min-w-22.5 text-center">
+												<div className="group relative">
+													<div className="flex items-center overflow-hidden rounded-lg border border-border/50 bg-bg-card transition-colors group-hover:border-white/10">
+														<div className="min-w-22.5 border-border border-r px-3 py-1.5 text-center text-sm text-text-primary">
 															{formData.date
 																? new Date(formData.date).toLocaleDateString(
-																	"en-GB",
-																	{
-																		weekday: "short",
-																		day: "numeric",
-																		month: "short",
-																	}
-																)
+																		"en-GB",
+																		{
+																			weekday: "short",
+																			day: "numeric",
+																			month: "short",
+																		},
+																	)
 																: "DD MMM"}
 														</div>
 													</div>
@@ -231,17 +231,13 @@ export default function CreateSchedulePage() {
 														onChange={(e) =>
 															setFormData({ ...formData, date: e.target.value })
 														}
-														className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20 
-														[&::-webkit-calendar-picker-indicator]:absolute 
-														[&::-webkit-calendar-picker-indicator]:w-full 
-														[&::-webkit-calendar-picker-indicator]:h-full 
-														[&::-webkit-calendar-picker-indicator]:opacity-0"
+														className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0"
 														required
 													/>
 												</div>
-												<div className="relative group">
-													<div className="flex items-center bg-bg-card rounded-lg overflow-hidden border border-border/50 group-hover:border-white/10 transition-colors">
-														<div className="px-3 py-1.5 text-text-primary text-sm min-w-15 text-center">
+												<div className="group relative">
+													<div className="flex items-center overflow-hidden rounded-lg border border-border/50 bg-bg-card transition-colors group-hover:border-white/10">
+														<div className="min-w-15 px-3 py-1.5 text-center text-sm text-text-primary">
 															{formData.startTime || "--:--"}
 														</div>
 													</div>
@@ -249,40 +245,39 @@ export default function CreateSchedulePage() {
 														type="time"
 														value={formData.startTime}
 														onChange={(e) =>
-															setFormData({ ...formData, startTime: e.target.value })
+															setFormData({
+																...formData,
+																startTime: e.target.value,
+															})
 														}
-														className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20 
-														[&::-webkit-calendar-picker-indicator]:absolute 
-														[&::-webkit-calendar-picker-indicator]:w-full 
-														[&::-webkit-calendar-picker-indicator]:h-full 
-														[&::-webkit-calendar-picker-indicator]:opacity-0"
+														className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0"
 														required
 													/>
 												</div>
 											</div>
 										</div>
 
-										<div className="relative flex items-center justify-between z-10">
+										<div className="relative z-10 flex items-center justify-between">
 											<div className="flex items-center gap-3">
-												<div className="w-2.5 h-2.5 rounded-full border border-muted-foreground bg-bg-card"></div>
-												<label className="text-text-primary font-medium">
+												<div className="h-2.5 w-2.5 rounded-full border border-muted-foreground bg-bg-card" />
+												<label className="font-medium text-text-primary">
 													End
 												</label>
 											</div>
 
 											<div className="flex gap-2">
-												<div className="relative group">
-													<div className="flex items-center bg-bg-card rounded-lg overflow-hidden border border-border/50 group-hover:border-white/10 transition-colors">
-														<div className="px-3 py-1.5 text-text-primary text-sm border-r border-border min-w-22.5 text-center">
+												<div className="group relative">
+													<div className="flex items-center overflow-hidden rounded-lg border border-border/50 bg-bg-card transition-colors group-hover:border-white/10">
+														<div className="min-w-22.5 border-border border-r px-3 py-1.5 text-center text-sm text-text-primary">
 															{formData.date
 																? new Date(formData.date).toLocaleDateString(
-																	"en-GB",
-																	{
-																		weekday: "short",
-																		day: "numeric",
-																		month: "short",
-																	}
-																)
+																		"en-GB",
+																		{
+																			weekday: "short",
+																			day: "numeric",
+																			month: "short",
+																		},
+																	)
 																: "DD MMM"}
 														</div>
 													</div>
@@ -292,17 +287,13 @@ export default function CreateSchedulePage() {
 														onChange={(e) =>
 															setFormData({ ...formData, date: e.target.value })
 														}
-														className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20 
-														[&::-webkit-calendar-picker-indicator]:absolute 
-														[&::-webkit-calendar-picker-indicator]:w-full 
-														[&::-webkit-calendar-picker-indicator]:h-full 
-														[&::-webkit-calendar-picker-indicator]:opacity-0"
+														className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0"
 														required
 													/>
 												</div>
-												<div className="relative group">
-													<div className="flex items-center bg-bg-card rounded-lg overflow-hidden border border-border/50 group-hover:border-white/10 transition-colors">
-														<div className="px-3 py-1.5 text-text-primary text-sm min-w-15 text-center">
+												<div className="group relative">
+													<div className="flex items-center overflow-hidden rounded-lg border border-border/50 bg-bg-card transition-colors group-hover:border-white/10">
+														<div className="min-w-15 px-3 py-1.5 text-center text-sm text-text-primary">
 															{formData.endTime || "--:--"}
 														</div>
 													</div>
@@ -310,13 +301,12 @@ export default function CreateSchedulePage() {
 														type="time"
 														value={formData.endTime}
 														onChange={(e) =>
-															setFormData({ ...formData, endTime: e.target.value })
+															setFormData({
+																...formData,
+																endTime: e.target.value,
+															})
 														}
-														className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20
-														[&::-webkit-calendar-picker-indicator]:absolute 
-														[&::-webkit-calendar-picker-indicator]:w-full 
-														[&::-webkit-calendar-picker-indicator]:h-full 
-														[&::-webkit-calendar-picker-indicator]:opacity-0"
+														className="absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:opacity-0"
 														required
 													/>
 												</div>
@@ -360,7 +350,9 @@ export default function CreateSchedulePage() {
 
 							<div className="grid gap-4 sm:grid-cols-2">
 								<div className="space-y-2">
-									<Label htmlFor="type" className="text-base">Session Type *</Label>
+									<Label htmlFor="type" className="text-base">
+										Session Type *
+									</Label>
 									<Select
 										value={formData.type}
 										onValueChange={(value: any) =>
@@ -383,7 +375,9 @@ export default function CreateSchedulePage() {
 								</div>
 
 								<div className="space-y-2">
-									<Label htmlFor="status" className="text-base">Status *</Label>
+									<Label htmlFor="status" className="text-base">
+										Status *
+									</Label>
 									<Select
 										value={formData.status}
 										onValueChange={(value: any) =>
@@ -404,7 +398,11 @@ export default function CreateSchedulePage() {
 								</div>
 							</div>
 
-							<Button type="submit" disabled={isSubmitting} className="w-full rounded-xl py-5 text-lg">
+							<Button
+								type="submit"
+								disabled={isSubmitting}
+								className="w-full rounded-xl py-5 text-lg"
+							>
 								{isSubmitting ? "Creating Session..." : "Create Session"}
 							</Button>
 						</form>
