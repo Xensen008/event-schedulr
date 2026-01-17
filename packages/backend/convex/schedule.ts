@@ -1,6 +1,5 @@
 import { v } from "convex/values"
 import { mutation, query } from "./_generated/server"
-import { success } from "zod";
 
 //create sesion function
 export const createSession = mutation({
@@ -50,6 +49,8 @@ export const createSession = mutation({
             status: args.status,
         });
 
+        const session = await ctx.db.get(sessionId);
+        return session;
     }
 })
 
@@ -125,9 +126,8 @@ export const deleteSession = mutation({
         }
 
         //delete the session
-        await ctx.db.delete(args.sessionId
-        )
-        return { success: true }
+        await ctx.db.delete(args.sessionId);
+        return { success: true };
     }
 })
 
