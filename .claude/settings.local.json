@@ -21,7 +21,9 @@
       "Bash(pnpm --filter @event-schedulr/backend exec convex codegen:*)",
       "Bash(pnpm biome check:*)",
       "Bash(npx biome:*)",
-      "Bash(pnpm tsc:*)"
+      "Bash(pnpm tsc:*)",
+      "Bash(chmod:*)",
+      "Bash(git stash:*)"
     ]
   }
 }
