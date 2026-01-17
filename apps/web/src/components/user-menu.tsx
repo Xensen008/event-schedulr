@@ -14,7 +14,6 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
-import { Button } from "./ui/button";
 
 export default function UserMenu() {
 	const user = useQuery(api.auth.getCurrentUser);
@@ -24,16 +23,11 @@ export default function UserMenu() {
 	return (
 		<DropdownMenu>
 			{/* Trigger */}
-			<DropdownMenuTrigger asChild>
-				<Button
-					variant="ghost"
-					className="flex cursor-pointer items-center gap-2 rounded-full duration-200"
-				>
-					{/* Avatar */}
-					<div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-primary to-indigo-600 font-semibold text-sm text-white transition-all duration-100 ease-in-out hover:from-primary-dark hover:to-primary-bright active:scale-95">
-						{user.name?.[0]?.toUpperCase()}
-					</div>
-				</Button>
+			<DropdownMenuTrigger className="flex cursor-pointer items-center gap-2 rounded-full outline-none duration-200 hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring">
+				{/* Avatar */}
+				<div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-primary to-indigo-600 font-semibold text-sm text-white transition-all duration-100 ease-in-out hover:from-primary-dark hover:to-primary-bright active:scale-95">
+					{user.name?.[0]?.toUpperCase()}
+				</div>
 			</DropdownMenuTrigger>
 
 			{/* Menu */}
