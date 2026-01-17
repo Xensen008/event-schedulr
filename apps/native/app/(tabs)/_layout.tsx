@@ -118,10 +118,10 @@ export default function TabLayout() {
 				<Tabs.Screen
 					name="live-activities"
 					options={{
-						title: "Live Activities",
+						title: "Activities",
 						tabBarIcon: ({ color, size }: { color: string; size: number }) => (
 							<TabBarIcon
-								name="diamond"
+								name="play-circle"
 								size={size}
 								color={color}
 								badgeCount={unseenCount}
@@ -134,7 +134,7 @@ export default function TabLayout() {
 					options={{
 						title: "Announcements",
 						tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-							<TabBarIcon name="notifications" size={size} color={color} />
+							<TabBarIcon name="megaphone" size={size} color={color} />
 						),
 					}}
 				/>
@@ -143,7 +143,7 @@ export default function TabLayout() {
 					options={{
 						title: "Profile",
 						tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-							<TabBarIcon name="woman-sharp" size={size} color={color} />
+							<TabBarIcon name="person" size={size} color={color} />
 						),
 					}}
 				/>

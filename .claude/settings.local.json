@@ -25,7 +25,8 @@
 			"Bash(chmod:*)",
 			"Bash(git stash:*)",
 			"Skill(web-design-guidelines)",
-			"Bash(pnpm --filter web exec tsc:*)"
+			"Bash(pnpm --filter web exec tsc:*)",
+			"Skill(expo-ios-designing)"
 		]
 	}
 }
