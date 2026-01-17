@@ -151,7 +151,7 @@ export default function SchedulePage() {
 					</div>
 					<div className="flex items-center gap-4">
 						<Select value={selectedEventFilter} onValueChange={(value) => setSelectedEventFilter(value || "all")}>
-							<SelectTrigger className="w-[140px]">
+							<SelectTrigger className="w-[140px] rounded-xl">
 								<SelectValue />
 							</SelectTrigger>
 							<SelectContent>
@@ -161,7 +161,7 @@ export default function SchedulePage() {
 							</SelectContent>
 						</Select>
 						<Link href="/schedule/create">
-							<Button>
+							<Button className="rounded-xl">
 								<Plus className="mr-2 h-4 w-4" />
 								Create Session
 							</Button>
@@ -172,7 +172,7 @@ export default function SchedulePage() {
 				{(currentSession || nextSession) && (
 					<div className="grid gap-4 sm:grid-cols-2">
 						{currentSession && (
-							<Card className="bg-green-600/20 border-green-500">
+							<Card className="bg-green-600/20 border-green-500/50 rounded-2xl">
 								<CardHeader>
 									<div className="flex items-center gap-2">
 										<div className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
@@ -201,7 +201,7 @@ export default function SchedulePage() {
 						)}
 
 						{nextSession && (
-							<Card className="bg-blue-600/20 border-blue-500">
+							<Card className="bg-blue-600/20 border-blue-500/50 rounded-2xl">
 								<CardHeader>
 									<div className="flex items-center gap-2">
 										<div className="h-3 w-3 rounded-full bg-orange-500" />
@@ -251,7 +251,7 @@ export default function SchedulePage() {
 
 								<div className="space-y-4">
 									{dateSessions.map((session) => (
-										<Card key={session._id} className="bg-bg-card">
+										<Card key={session._id} className="bg-bg-card rounded-2xl border border-border/50">
 											<CardContent className="p-6">
 												<div className="flex gap-6">
 													<div className="flex flex-col items-center min-w-[100px]">
@@ -290,11 +290,11 @@ export default function SchedulePage() {
 															)}
 														</div>
 														<div className="flex items-center gap-2 mt-3">
-															<Badge variant={getTypeBadgeVariant(session.type)}>
+															<Badge variant={getTypeBadgeVariant(session.type)} className="rounded-lg">
 																{session.type.charAt(0).toUpperCase() +
 																	session.type.slice(1)}
 															</Badge>
-															<Badge variant={getStatusBadgeVariant(session.status)}>
+															<Badge variant={getStatusBadgeVariant(session.status)} className="rounded-lg">
 																{session.status.charAt(0).toUpperCase() +
 																	session.status.slice(1)}
 															</Badge>
@@ -309,7 +309,7 @@ export default function SchedulePage() {
 						);
 					})
 				) : (
-					<Card>
+					<Card className="rounded-2xl">
 						<CardContent className="py-16 text-center">
 							<Calendar className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
 							<h3 className="mb-2 text-lg font-semibold">No sessions scheduled</h3>
@@ -317,7 +317,7 @@ export default function SchedulePage() {
 								Create your first session to get started
 							</p>
 							<Link href="/schedule/create">
-								<Button>
+								<Button className="rounded-xl">
 									<Plus className="mr-2 h-4 w-4" />
 									Create Session
 								</Button>
