@@ -324,7 +324,10 @@ export function GuessLogoPresentation({
 								{reactionCount?.count ?? 0}
 							</p>
 						</div>
-						<p className="text-xs" style={{ color: "var(--presentation-muted)" }}>
+						<p
+							className="text-xs"
+							style={{ color: "var(--presentation-muted)" }}
+						>
 							Likes
 						</p>
 					</div>
@@ -343,7 +346,10 @@ export function GuessLogoPresentation({
 								{results.totalParticipants}
 							</p>
 						</div>
-						<p className="text-xs" style={{ color: "var(--presentation-muted)" }}>
+						<p
+							className="text-xs"
+							style={{ color: "var(--presentation-muted)" }}
+						>
 							Players
 						</p>
 					</div>

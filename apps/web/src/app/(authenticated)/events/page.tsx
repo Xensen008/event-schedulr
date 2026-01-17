@@ -4,11 +4,11 @@ import { api } from "@event-schedulr/backend/convex/_generated/api";
 import type { Id } from "@event-schedulr/backend/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { ArrowRight, PlusIcon, QrCode, Users } from "lucide-react";
-import { getPresetById } from "@/lib/event-graphics";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { getPresetById } from "@/lib/event-graphics";
 
 async function loadImageAsDataUrl(url: string): Promise<string | null> {
 	try {

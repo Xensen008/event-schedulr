@@ -265,7 +265,7 @@ export function CreateActivitySheet({
 				render={
 					<Button
 						size="sm"
-						className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:shadow-indigo-500/30"
+						className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-indigo-500/20 shadow-lg transition-all duration-200 hover:from-indigo-600 hover:to-purple-600 hover:shadow-indigo-500/30"
 					>
 						<Plus size={16} className="mr-1.5" />
 						Create Activity
@@ -275,12 +275,14 @@ export function CreateActivitySheet({
 			<SheetContent className="w-[45%] min-w-[420px] max-w-[640px] overflow-y-auto border-zinc-800/50 bg-gradient-to-b from-zinc-900 to-zinc-950 p-6 text-white">
 				<SheetHeader className="pb-6">
 					<div className="flex items-center gap-3">
-						<div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/20">
+						<div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-indigo-500/20 shadow-lg">
 							<Sparkles className="h-5 w-5 text-white" />
 						</div>
 						<div>
-							<SheetTitle className="text-xl text-white">Create Activity</SheetTitle>
-							<SheetDescription className="text-zinc-400 text-sm">
+							<SheetTitle className="text-white text-xl">
+								Create Activity
+							</SheetTitle>
+							<SheetDescription className="text-sm text-zinc-400">
 								Engage your event participants with interactive activities
 							</SheetDescription>
 						</div>
@@ -291,7 +293,9 @@ export function CreateActivitySheet({
 					<div className="space-y-4">
 						<div className="flex items-center gap-2">
 							<div className="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent" />
-							<span className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Select Type</span>
+							<span className="font-medium text-xs text-zinc-500 uppercase tracking-wider">
+								Select Type
+							</span>
 							<div className="h-px flex-1 bg-gradient-to-l from-zinc-800 to-transparent" />
 						</div>
 						<ActivityTypeSelector
@@ -305,18 +309,25 @@ export function CreateActivitySheet({
 							<div className="space-y-3">
 								<div className="flex items-center gap-2">
 									<div className="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent" />
-									<span className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Details</span>
+									<span className="font-medium text-xs text-zinc-500 uppercase tracking-wider">
+										Details
+									</span>
 									<div className="h-px flex-1 bg-gradient-to-l from-zinc-800 to-transparent" />
 								</div>
 								<div className="space-y-2">
-									<Label htmlFor="title" className="text-zinc-300 text-sm font-medium">Activity Title</Label>
+									<Label
+										htmlFor="title"
+										className="font-medium text-sm text-zinc-300"
+									>
+										Activity Title
+									</Label>
 									<Input
 										id="title"
 										value={title}
 										onChange={(e) => setTitle(e.target.value)}
 										placeholder="Enter a title for this activity"
 										required
-										className="h-11 border-zinc-700/50 bg-zinc-800/50 text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500/50 transition-all duration-200"
+										className="h-11 border-zinc-700/50 bg-zinc-800/50 text-white transition-all duration-200 placeholder:text-zinc-500 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500/50"
 									/>
 								</div>
 							</div>
@@ -324,7 +335,9 @@ export function CreateActivitySheet({
 							<div className="space-y-4">
 								<div className="flex items-center gap-2">
 									<div className="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent" />
-									<span className="text-xs font-medium text-zinc-500 uppercase tracking-wider">Configuration</span>
+									<span className="font-medium text-xs text-zinc-500 uppercase tracking-wider">
+										Configuration
+									</span>
 									<div className="h-px flex-1 bg-gradient-to-l from-zinc-800 to-transparent" />
 								</div>
 								<div className="rounded-2xl border border-zinc-800/50 bg-zinc-800/20 p-5">
@@ -351,7 +364,10 @@ export function CreateActivitySheet({
 										setStartInstantly(checked === true)
 									}
 								/>
-								<Label htmlFor="startInstantly" className="font-normal text-zinc-300 text-sm cursor-pointer">
+								<Label
+									htmlFor="startInstantly"
+									className="cursor-pointer font-normal text-sm text-zinc-300"
+								>
 									Start activity immediately when created
 								</Label>
 							</div>
@@ -360,7 +376,7 @@ export function CreateActivitySheet({
 								<Button
 									type="button"
 									variant="outline"
-									className="flex-1 h-11 border-zinc-700/50 text-zinc-300 hover:bg-zinc-800/50 hover:text-white transition-all duration-200"
+									className="h-11 flex-1 border-zinc-700/50 text-zinc-300 transition-all duration-200 hover:bg-zinc-800/50 hover:text-white"
 									onClick={() => {
 										resetForm();
 										setOpen(false);
@@ -370,7 +386,7 @@ export function CreateActivitySheet({
 								</Button>
 								<Button
 									type="submit"
-									className="flex-1 h-11 bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 shadow-lg shadow-indigo-500/20 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+									className="h-11 flex-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-indigo-500/20 shadow-lg transition-all duration-200 hover:from-indigo-600 hover:to-purple-600 disabled:cursor-not-allowed disabled:opacity-50"
 									disabled={isSubmitting}
 								>
 									{isSubmitting ? (

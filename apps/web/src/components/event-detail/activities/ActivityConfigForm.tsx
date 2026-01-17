@@ -100,7 +100,9 @@ export function ActivityConfigForm({
 		return (
 			<div className="space-y-5">
 				<div className="space-y-2.5">
-					<Label htmlFor="question" className={labelClassName}>Question</Label>
+					<Label htmlFor="question" className={labelClassName}>
+						Question
+					</Label>
 					<Textarea
 						id="question"
 						value={pollConfig.question || ""}
@@ -118,7 +120,7 @@ export function ActivityConfigForm({
 						{pollOptions.map((option, index) => (
 							<div key={index} className="group flex gap-2">
 								<div className="relative flex-1">
-									<span className="absolute top-1/2 left-3 -translate-y-1/2 text-zinc-500 text-sm">
+									<span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-zinc-500">
 										{index + 1}.
 									</span>
 									<Input
@@ -142,7 +144,7 @@ export function ActivityConfigForm({
 												pollOptions.filter((_, i) => i !== index),
 											);
 										}}
-										className="text-zinc-500 opacity-0 transition-opacity hover:text-red-400 hover:bg-red-500/10 group-hover:opacity-100"
+										className="text-zinc-500 opacity-0 transition-opacity hover:bg-red-500/10 hover:text-red-400 group-hover:opacity-100"
 									>
 										<Trash2 className="h-4 w-4" />
 									</Button>
@@ -156,7 +158,7 @@ export function ActivityConfigForm({
 							variant="outline"
 							size="sm"
 							onClick={() => updatePollOptions([...pollOptions, ""])}
-							className="border-zinc-700/50 border-dashed text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-300 hover:border-zinc-600 transition-all duration-200"
+							className="border-zinc-700/50 border-dashed text-zinc-400 transition-all duration-200 hover:border-zinc-600 hover:bg-zinc-800/50 hover:text-zinc-300"
 						>
 							<Plus className="mr-1.5 h-4 w-4" />
 							Add Option
@@ -177,7 +179,10 @@ export function ActivityConfigForm({
 								})
 							}
 						/>
-						<Label htmlFor="allowMultiple" className="font-normal text-zinc-300 text-sm cursor-pointer">
+						<Label
+							htmlFor="allowMultiple"
+							className="cursor-pointer font-normal text-sm text-zinc-300"
+						>
 							Allow multiple answers
 						</Label>
 					</div>
@@ -194,7 +199,10 @@ export function ActivityConfigForm({
 								})
 							}
 						/>
-						<Label htmlFor="showResults" className="font-normal text-zinc-300 text-sm cursor-pointer">
+						<Label
+							htmlFor="showResults"
+							className="cursor-pointer font-normal text-sm text-zinc-300"
+						>
 							Show results to participants after voting
 						</Label>
 					</div>
@@ -208,7 +216,9 @@ export function ActivityConfigForm({
 		return (
 			<div className="space-y-5">
 				<div className="space-y-2.5">
-					<Label htmlFor="prompt" className={labelClassName}>Prompt</Label>
+					<Label htmlFor="prompt" className={labelClassName}>
+						Prompt
+					</Label>
 					<Textarea
 						id="prompt"
 						value={wordCloudConfig.prompt || ""}
@@ -226,7 +236,9 @@ export function ActivityConfigForm({
 
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="space-y-2.5">
-						<Label htmlFor="maxSubmissions" className={labelClassName}>Max Submissions</Label>
+						<Label htmlFor="maxSubmissions" className={labelClassName}>
+							Max Submissions
+						</Label>
 						<Input
 							id="maxSubmissions"
 							type="number"
@@ -245,7 +257,9 @@ export function ActivityConfigForm({
 						<p className={mutedClassName}>Per participant</p>
 					</div>
 					<div className="space-y-2.5">
-						<Label htmlFor="maxWordLength" className={labelClassName}>Max Word Length</Label>
+						<Label htmlFor="maxWordLength" className={labelClassName}>
+							Max Word Length
+						</Label>
 						<Input
 							id="maxWordLength"
 							type="number"
@@ -273,7 +287,9 @@ export function ActivityConfigForm({
 		return (
 			<div className="space-y-5">
 				<div className="space-y-2.5">
-					<Label htmlFor="roundCount" className={labelClassName}>Number of Rounds</Label>
+					<Label htmlFor="roundCount" className={labelClassName}>
+						Number of Rounds
+					</Label>
 					<Input
 						id="roundCount"
 						type="number"
@@ -293,7 +309,9 @@ export function ActivityConfigForm({
 
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="space-y-2.5">
-						<Label htmlFor="minDelay" className={labelClassName}>Min Delay</Label>
+						<Label htmlFor="minDelay" className={labelClassName}>
+							Min Delay
+						</Label>
 						<Input
 							id="minDelay"
 							type="number"
@@ -313,7 +331,9 @@ export function ActivityConfigForm({
 						<p className={mutedClassName}>Milliseconds</p>
 					</div>
 					<div className="space-y-2.5">
-						<Label htmlFor="maxDelay" className={labelClassName}>Max Delay</Label>
+						<Label htmlFor="maxDelay" className={labelClassName}>
+							Max Delay
+						</Label>
 						<Input
 							id="maxDelay"
 							type="number"
@@ -333,9 +353,10 @@ export function ActivityConfigForm({
 						<p className={mutedClassName}>Milliseconds</p>
 					</div>
 				</div>
-				<div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-3">
+				<div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3">
 					<p className="text-amber-400/80 text-xs">
-						The delay before showing "TAP NOW!" will be random between min and max values
+						The delay before showing "TAP NOW!" will be random between min and
+						max values
 					</p>
 				</div>
 			</div>
@@ -347,7 +368,9 @@ export function ActivityConfigForm({
 		return (
 			<div className="space-y-5">
 				<div className="space-y-2.5">
-					<Label htmlFor="maxMessageLength" className={labelClassName}>Max Message Length</Label>
+					<Label htmlFor="maxMessageLength" className={labelClassName}>
+						Max Message Length
+					</Label>
 					<Input
 						id="maxMessageLength"
 						type="number"
@@ -367,7 +390,9 @@ export function ActivityConfigForm({
 				</div>
 
 				<div className="space-y-2.5">
-					<Label htmlFor="slowMode" className={labelClassName}>Slow Mode</Label>
+					<Label htmlFor="slowMode" className={labelClassName}>
+						Slow Mode
+					</Label>
 					<Input
 						id="slowMode"
 						type="number"
@@ -396,7 +421,9 @@ export function ActivityConfigForm({
 		return (
 			<div className="space-y-5">
 				<div className="space-y-2.5">
-					<Label htmlFor="category" className={labelClassName}>Category</Label>
+					<Label htmlFor="category" className={labelClassName}>
+						Category
+					</Label>
 					<Input
 						id="category"
 						value={logoConfig.category || ""}
@@ -414,7 +441,9 @@ export function ActivityConfigForm({
 
 				<div className="grid gap-4 sm:grid-cols-2">
 					<div className="space-y-2.5">
-						<Label htmlFor="logoCount" className={labelClassName}>Number of Logos</Label>
+						<Label htmlFor="logoCount" className={labelClassName}>
+							Number of Logos
+						</Label>
 						<Input
 							id="logoCount"
 							type="number"
@@ -432,7 +461,9 @@ export function ActivityConfigForm({
 						/>
 					</div>
 					<div className="space-y-2.5">
-						<Label htmlFor="timePerLogo" className={labelClassName}>Time per Logo</Label>
+						<Label htmlFor="timePerLogo" className={labelClassName}>
+							Time per Logo
+						</Label>
 						<select
 							id="timePerLogo"
 							value={logoConfig.timePerLogo || 45}
@@ -443,7 +474,7 @@ export function ActivityConfigForm({
 									timePerLogo: Number(e.target.value),
 								})
 							}
-							className="flex h-10 w-full rounded-lg border border-zinc-700/50 bg-zinc-800/50 px-3 py-2 text-sm text-white transition-all duration-200 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500/50 focus:outline-none"
+							className="flex h-10 w-full rounded-lg border border-zinc-700/50 bg-zinc-800/50 px-3 py-2 text-sm text-white transition-all duration-200 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500/50"
 						>
 							<option value={30}>30 seconds</option>
 							<option value={45}>45 seconds</option>
@@ -463,7 +494,7 @@ export function ActivityConfigForm({
 								onClick={() =>
 									onChange({ ...config, type: "guess_logo", difficulty: d })
 								}
-								className={`rounded-lg border-2 px-4 py-2.5 text-sm font-medium capitalize transition-all duration-200 ${
+								className={`rounded-lg border-2 px-4 py-2.5 font-medium text-sm capitalize transition-all duration-200 ${
 									logoConfig.difficulty === d
 										? d === "easy"
 											? "border-green-500 bg-green-500/20 text-green-400"
@@ -494,13 +525,16 @@ export function ActivityConfigForm({
 							})
 						}
 					/>
-					<Label htmlFor="showHints" className="font-normal text-zinc-300 text-sm cursor-pointer">
+					<Label
+						htmlFor="showHints"
+						className="cursor-pointer font-normal text-sm text-zinc-300"
+					>
 						Show hints to participants (with point penalty)
 					</Label>
 				</div>
 
 				{onGenerateLogos && (
-					<div className="border-t border-zinc-700/50 pt-5">
+					<div className="border-zinc-700/50 border-t pt-5">
 						<Button
 							type="button"
 							onClick={() =>
@@ -511,10 +545,10 @@ export function ActivityConfigForm({
 								})
 							}
 							disabled={isGeneratingLogos || !logoConfig.category?.trim()}
-							className={`w-full h-11 text-sm font-medium transition-all duration-200 ${
+							className={`h-11 w-full font-medium text-sm transition-all duration-200 ${
 								logosGenerated
-									? "bg-green-600 hover:bg-green-700 text-white"
-									: "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white shadow-lg shadow-rose-500/20"
+									? "bg-green-600 text-white hover:bg-green-700"
+									: "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/20 hover:from-rose-600 hover:to-pink-600"
 							}`}
 						>
 							{isGeneratingLogos ? (
@@ -535,8 +569,8 @@ export function ActivityConfigForm({
 							)}
 						</Button>
 						{logosGenerated && (
-							<p className="mt-3 text-center text-green-400 text-sm flex items-center justify-center gap-2">
-								<span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+							<p className="mt-3 flex items-center justify-center gap-2 text-center text-green-400 text-sm">
+								<span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
 								Logos generated successfully!
 							</p>
 						)}
