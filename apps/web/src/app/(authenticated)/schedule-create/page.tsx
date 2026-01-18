@@ -14,17 +14,17 @@ import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+	SimplePopover,
+	SimplePopoverTrigger,
+	SimplePopoverContent,
+} from "@/components/ui/simple-popover";
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+	SimpleSelect,
+	SimpleSelectTrigger,
+	SimpleSelectValue,
+	SimpleSelectContent,
+	SimpleSelectItem,
+} from "@/components/ui/simple-select";
 
 type SessionType = "talk" | "workshop" | "break" | "meal" | "activity" | "ceremony" | "other";
 
@@ -117,7 +117,7 @@ export default function CreateSchedulePage() {
 
 function CreateScheduleSkeleton() {
 	return (
-		<div className="mx-auto max-w-3xl px-6 text-white" style={{ scrollbarGutter: "stable" }}>
+		<div className="mx-auto max-w-3xl px-6 text-white">
 			<div className="py-8">
 				<div className="h-10 w-48 animate-pulse rounded bg-white/10" />
 			</div>
@@ -162,7 +162,7 @@ function CreateScheduleContent() {
 
 	if (!eventId) {
 		return (
-			<div className="mx-auto max-w-3xl px-6 py-12 text-white" style={{ scrollbarGutter: "stable" }}>
+			<div className="mx-auto max-w-3xl px-6 py-12 text-white">
 				<div className="rounded-xl border border-white/10 bg-white/3 p-8 text-center">
 					<h2 className="mb-2 font-semibold text-xl">Event ID Required</h2>
 					<p className="mb-6 text-white/60">
@@ -185,7 +185,7 @@ function CreateScheduleContent() {
 
 	if (event === null) {
 		return (
-			<div className="mx-auto max-w-3xl px-6 py-12 text-white" style={{ scrollbarGutter: "stable" }}>
+			<div className="mx-auto max-w-3xl px-6 py-12 text-white">
 				<div className="rounded-xl border border-white/10 bg-white/3 p-8 text-center">
 					<h2 className="mb-2 font-semibold text-xl">Event Not Found</h2>
 					<p className="mb-6 text-white/60">
@@ -350,7 +350,7 @@ function CreateScheduleContent() {
 	const eventEndDate = new Date(event.endsAt);
 
 	return (
-		<div className="mx-auto max-w-3xl px-6 text-white" style={{ scrollbarGutter: "stable" }}>
+		<div className="mx-auto max-w-3xl px-6 text-white min-h-[calc(100vh+1px)]">
 			<div className="py-8">
 				<div className="flex items-center justify-between">
 					<div>
@@ -483,7 +483,7 @@ function SessionCard({
 
 	// Expanded view
 	return (
-		<div className="rounded-xl border border-white/20 bg-[rgba(90,90,90,0.12)] overflow-hidden transition-all duration-200">
+		<div className="rounded-xl border border-white/20 bg-[rgba(90,90,90,0.12)] transition-all duration-200">
 			{/* Header */}
 			<div className="flex items-center justify-between p-4 border-b border-white/10">
 				<div className="flex items-center gap-3">
@@ -568,17 +568,14 @@ function SessionCard({
 							</div>
 
 							<div className="flex items-center gap-2">
-								<Popover>
-									<PopoverTrigger className="flex items-center gap-2 rounded-lg border border-transparent bg-[rgba(37,37,37,0.6)] px-3 py-1.5 text-sm text-white transition-colors hover:border-white/10">
+								<SimplePopover>
+									<SimplePopoverTrigger className="flex items-center gap-2 rounded-lg border border-transparent bg-[rgba(37,37,37,0.6)] px-3 py-1.5 text-sm text-white transition-colors hover:border-white/10">
 										<CalendarIcon className="h-4 w-4 text-white/60" />
 										{session.startDate
 											? format(session.startDate, "EEE, MMM d")
 											: "Select date"}
-									</PopoverTrigger>
-									<PopoverContent
-										className="w-auto rounded-xl border border-white/10 bg-[#1a1a1a] p-0"
-										align="end"
-									>
+									</SimplePopoverTrigger>
+									<SimplePopoverContent className="p-0" align="end">
 										<Calendar
 											mode="single"
 											selected={session.startDate}
@@ -586,8 +583,8 @@ function SessionCard({
 											disabled={isDateDisabled}
 											className="bg-[#1a1a1a] text-white"
 										/>
-									</PopoverContent>
-								</Popover>
+									</SimplePopoverContent>
+								</SimplePopover>
 
 								<input
 									type="time"
@@ -606,17 +603,14 @@ function SessionCard({
 							</div>
 
 							<div className="flex items-center gap-2">
-								<Popover>
-									<PopoverTrigger className="flex items-center gap-2 rounded-lg border border-transparent bg-[rgba(37,37,37,0.6)] px-3 py-1.5 text-sm text-white transition-colors hover:border-white/10">
+								<SimplePopover>
+									<SimplePopoverTrigger className="flex items-center gap-2 rounded-lg border border-transparent bg-[rgba(37,37,37,0.6)] px-3 py-1.5 text-sm text-white transition-colors hover:border-white/10">
 										<CalendarIcon className="h-4 w-4 text-white/60" />
 										{session.endDate
 											? format(session.endDate, "EEE, MMM d")
 											: "Select date"}
-									</PopoverTrigger>
-									<PopoverContent
-										className="w-auto rounded-xl border border-white/10 bg-[#1a1a1a] p-0"
-										align="end"
-									>
+									</SimplePopoverTrigger>
+									<SimplePopoverContent className="p-0" align="end">
 										<Calendar
 											mode="single"
 											selected={session.endDate}
@@ -624,8 +618,8 @@ function SessionCard({
 											disabled={isDateDisabled}
 											className="bg-[#1a1a1a] text-white"
 										/>
-									</PopoverContent>
-								</Popover>
+									</SimplePopoverContent>
+								</SimplePopover>
 
 								<input
 									type="time"
@@ -673,25 +667,22 @@ function SessionCard({
 					<Label htmlFor={`type-${session.id}`} className="text-sm font-medium text-white/70">
 						Session Type
 					</Label>
-					<Select
+					<SimpleSelect
 						value={session.type}
-						onValueChange={(value) => {
-							if (value) onUpdate({ type: value as SessionType });
-						}}
+						onValueChange={(value) => onUpdate({ type: value as SessionType })}
 					>
-						<SelectTrigger className="h-9 rounded-lg border border-white/10 bg-[rgba(37,37,37,0.4)] text-sm text-white">
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent className="text-white">
-							<SelectItem value="talk">Talk</SelectItem>
-							<SelectItem value="workshop">Workshop</SelectItem>
-							<SelectItem value="break">Break</SelectItem>
-							<SelectItem value="meal">Meal</SelectItem>
-							<SelectItem value="activity">Activity</SelectItem>
-							<SelectItem value="ceremony">Ceremony</SelectItem>
-							<SelectItem value="other">Other</SelectItem>
-						</SelectContent>
-					</Select>
+						<SimpleSelectTrigger>
+							<SimpleSelectValue />
+						</SimpleSelectTrigger>
+						<SimpleSelectContent>
+							<SimpleSelectItem value="talk">Talk</SimpleSelectItem>
+							<SimpleSelectItem value="workshop">Workshop</SimpleSelectItem>
+							<SimpleSelectItem value="break">Break</SimpleSelectItem>
+							<SimpleSelectItem value="meal">Meal</SimpleSelectItem>
+							<SimpleSelectItem value="activity">Activity</SimpleSelectItem>
+							<SimpleSelectItem value="other">Other</SimpleSelectItem>
+						</SimpleSelectContent>
+					</SimpleSelect>
 				</div>
 			</div>
 		</div>
