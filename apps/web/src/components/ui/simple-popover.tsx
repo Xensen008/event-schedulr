@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect, createContext, useContext } from "react";
+import type React from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface SimplePopoverContextType {
@@ -9,12 +10,16 @@ interface SimplePopoverContextType {
 	triggerRef: React.RefObject<HTMLButtonElement>;
 }
 
-const SimplePopoverContext = createContext<SimplePopoverContextType | null>(null);
+const SimplePopoverContext = createContext<SimplePopoverContextType | null>(
+	null,
+);
 
 function useSimplePopover() {
 	const context = useContext(SimplePopoverContext);
 	if (!context) {
-		throw new Error("SimplePopover components must be used within SimplePopover");
+		throw new Error(
+			"SimplePopover components must be used within SimplePopover",
+		);
 	}
 	return context;
 }
@@ -31,7 +36,10 @@ export function SimplePopover({ children, className }: SimplePopoverProps) {
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
-			if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+			if (
+				containerRef.current &&
+				!containerRef.current.contains(event.target as Node)
+			) {
 				setIsOpen(false);
 			}
 		};
@@ -46,8 +54,17 @@ export function SimplePopover({ children, className }: SimplePopoverProps) {
 	}, [isOpen]);
 
 	return (
-		<SimplePopoverContext.Provider value={{ isOpen, setIsOpen, triggerRef: triggerRef as React.RefObject<HTMLButtonElement> }}>
-			<div ref={containerRef} className={cn("relative", className)}>
+		<SimplePopoverContext.Provider
+			value={{
+				isOpen,
+				setIsOpen,
+				triggerRef: triggerRef as React.RefObject<HTMLButtonElement>,
+			}}
+		>
+			<div
+				ref={containerRef}
+				className={cn("relative", isOpen && "z-50", className)}
+			>
 				{children}
 			</div>
 		</SimplePopoverContext.Provider>
@@ -60,7 +77,10 @@ interface SimplePopoverTriggerProps {
 	asChild?: boolean;
 }
 
-export function SimplePopoverTrigger({ children, className }: SimplePopoverTriggerProps) {
+export function SimplePopoverTrigger({
+	children,
+	className,
+}: SimplePopoverTriggerProps) {
 	const { isOpen, setIsOpen, triggerRef } = useSimplePopover();
 
 	return (
@@ -81,7 +101,11 @@ interface SimplePopoverContentProps {
 	align?: "start" | "center" | "end";
 }
 
-export function SimplePopoverContent({ children, className, align = "end" }: SimplePopoverContentProps) {
+export function SimplePopoverContent({
+	children,
+	className,
+	align = "end",
+}: SimplePopoverContentProps) {
 	const { isOpen } = useSimplePopover();
 
 	if (!isOpen) return null;
@@ -95,9 +119,9 @@ export function SimplePopoverContent({ children, className, align = "end" }: Sim
 	return (
 		<div
 			className={cn(
-				"absolute z-100 mt-1 rounded-xl border border-white/10 bg-[#1a1a1a] shadow-xl",
+				"absolute z-50 mt-1 rounded-xl border border-white/10 bg-[#1a1a1a] shadow-xl",
 				alignmentClasses[align],
-				className
+				className,
 			)}
 		>
 			{children}
