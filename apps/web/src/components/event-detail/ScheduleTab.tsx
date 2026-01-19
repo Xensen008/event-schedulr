@@ -83,9 +83,31 @@ export function ScheduleTab({ eventId }: ScheduleTabProps) {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setNow(Date.now());
-		}, 30000);
+		}, 1000);
 		return () => clearInterval(interval);
 	}, []);
+
+	const formatRemainingTime = (endTime: number) => {
+		const remaining = endTime - now;
+		if (remaining <= 0) return "Ending...";
+		const hours = Math.floor(remaining / (1000 * 60 * 60));
+		const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+		if (hours > 0) {
+			return `${hours}h ${minutes}m remaining`;
+		}
+		if (minutes > 0) {
+			return `${minutes}m ${seconds}s remaining`;
+		}
+		return `${seconds}s remaining`;
+	};
+
+	const formatShortDate = (timestamp: number) => {
+		return new Date(timestamp).toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+		});
+	};
 
 	const currentSession =
 		currentSessionQuery &&
@@ -178,11 +200,16 @@ export function ScheduleTab({ eventId }: ScheduleTabProps) {
 				<div className="grid gap-4 sm:grid-cols-2">
 					{currentSession && (
 						<div className="rounded-xl border border-green-500/50 bg-green-600/20 p-4">
-							<div className="mb-3 flex items-center gap-2">
-								<div className="h-3 w-3 animate-pulse rounded-full bg-red-500" />
-								<h3 className="font-semibold text-green-400 text-sm">
-									HAPPENING NOW
-								</h3>
+							<div className="mb-3 flex items-center justify-between">
+								<div className="flex items-center gap-2">
+									<div className="h-3 w-3 animate-pulse rounded-full bg-red-500" />
+									<h3 className="font-semibold text-green-400 text-sm">
+										HAPPENING NOW
+									</h3>
+								</div>
+								<span className="rounded-full bg-green-500/20 px-3 py-1 font-medium text-green-300 text-xs">
+									{formatRemainingTime(currentSession.endTime)}
+								</span>
 							</div>
 							<h4 className="mb-2 font-semibold text-lg text-white">
 								{currentSession.title}
@@ -260,13 +287,44 @@ export function ScheduleTab({ eventId }: ScheduleTabProps) {
 												className="flex gap-4 rounded-xl border border-white/10 bg-white/3 p-4 transition-colors hover:bg-white/6"
 											>
 												<div className="flex min-w-[100px] flex-col items-center gap-1 text-center">
-													<span className="font-semibold text-lg text-white">
-														{formatTime(session.startTime)}
-													</span>
-													<span className="text-white/40 text-xs">to</span>
-													<span className="text-sm text-white/60">
-														{formatTime(session.endTime)}
-													</span>
+													{(() => {
+														const startDate = new Date(session.startTime);
+														const endDate = new Date(session.endTime);
+														const sameDay =
+															startDate.toDateString() ===
+															endDate.toDateString();
+														return sameDay ? (
+															<>
+																<span className="font-semibold text-lg text-white">
+																	{formatTime(session.startTime)}
+																</span>
+																<span className="text-white/40 text-xs">
+																	to
+																</span>
+																<span className="text-sm text-white/60">
+																	{formatTime(session.endTime)}
+																</span>
+															</>
+														) : (
+															<>
+																<span className="font-semibold text-white">
+																	{formatTime(session.startTime)}
+																</span>
+																<span className="text-white/50 text-xs">
+																	{formatShortDate(session.startTime)}
+																</span>
+																<span className="text-white/40 text-xs">
+																	to
+																</span>
+																<span className="text-white/60">
+																	{formatTime(session.endTime)}
+																</span>
+																<span className="text-white/50 text-xs">
+																	{formatShortDate(session.endTime)}
+																</span>
+															</>
+														);
+													})()}
 												</div>
 
 												<div className="h-auto w-px bg-white/10" />

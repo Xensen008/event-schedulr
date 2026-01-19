@@ -1,6 +1,82 @@
 import { v } from "convex/values";
 import { action, mutation, query } from "./_generated/server";
 
+const formatTimeForError = (timestamp: number) => {
+	return new Date(timestamp).toLocaleTimeString("en-US", {
+		hour: "numeric",
+		minute: "2-digit",
+		hour12: true,
+	});
+};
+
+const formatDateForError = (timestamp: number) => {
+	return new Date(timestamp).toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+	});
+};
+
+interface TimeSlot {
+	startTime: number;
+	endTime: number;
+	title: string;
+}
+
+const findNextAvailableSlot = (
+	sessionDuration: number,
+	existingSessions: TimeSlot[],
+	eventEndsAt: number,
+	conflictingSession: TimeSlot,
+): string => {
+	const sortedSessions = [...existingSessions].sort(
+		(a, b) => a.startTime - b.startTime,
+	);
+
+	const afterConflict = conflictingSession.endTime;
+	if (afterConflict + sessionDuration <= eventEndsAt) {
+		const hasConflict = sortedSessions.some(
+			(s) =>
+				s.startTime < afterConflict + sessionDuration &&
+				s.endTime > afterConflict &&
+				s.startTime !== conflictingSession.startTime,
+		);
+		if (!hasConflict) {
+			return `Try starting at ${formatTimeForError(afterConflict)}`;
+		}
+	}
+
+	for (let i = 0; i < sortedSessions.length - 1; i++) {
+		const gapStart = sortedSessions[i].endTime;
+		const gapEnd = sortedSessions[i + 1].startTime;
+		const gapDuration = gapEnd - gapStart;
+
+		if (gapDuration >= sessionDuration) {
+			return `Try ${formatTimeForError(gapStart)} - ${formatTimeForError(gapStart + sessionDuration)}`;
+		}
+	}
+
+	if (sortedSessions.length > 0) {
+		const lastSession = sortedSessions[sortedSessions.length - 1];
+		if (lastSession.endTime + sessionDuration <= eventEndsAt) {
+			return `Try starting at ${formatTimeForError(lastSession.endTime)}`;
+		}
+	}
+
+	const bookedSlots = sortedSessions
+		.slice(0, 3)
+		.map(
+			(s) =>
+				`${formatTimeForError(s.startTime)} - ${formatTimeForError(s.endTime)}`,
+		)
+		.join(", ");
+
+	if (bookedSlots) {
+		return `Already booked: ${bookedSlots}. Please choose a different time`;
+	}
+
+	return "Please choose a different time slot";
+};
+
 // Session data type for batch creation
 const sessionDataValidator = v.object({
 	title: v.string(),
@@ -50,7 +126,12 @@ export const createMultipleSessions = mutation({
 			throw new Error("At least one session is required");
 		}
 
-		// Validate all sessions are within event date range
+		const existingSessions = await ctx.db
+			.query("sessions")
+			.withIndex("by_event", (q) => q.eq("eventId", args.eventId))
+			.collect();
+
+		// Validate all sessions are within event date range and don't overlap
 		for (const sessionData of args.sessions) {
 			if (sessionData.startTime < event.startsAt) {
 				throw new Error(
@@ -66,6 +147,38 @@ export const createMultipleSessions = mutation({
 				throw new Error(
 					`Session "${sessionData.title}" has invalid time range`,
 				);
+			}
+
+			for (const existing of existingSessions) {
+				const overlaps =
+					sessionData.startTime < existing.endTime &&
+					sessionData.endTime > existing.startTime;
+				if (overlaps) {
+					const existingTime = `${formatTimeForError(existing.startTime)} - ${formatTimeForError(existing.endTime)} on ${formatDateForError(existing.startTime)}`;
+					const sessionDuration = sessionData.endTime - sessionData.startTime;
+					const suggestion = findNextAvailableSlot(
+						sessionDuration,
+						existingSessions,
+						event.endsAt,
+						existing,
+					);
+					throw new Error(
+						`Time conflict: "${sessionData.title}" overlaps with "${existing.title}" (${existingTime}). ${suggestion}.`,
+					);
+				}
+			}
+		}
+
+		for (let i = 0; i < args.sessions.length; i++) {
+			for (let j = i + 1; j < args.sessions.length; j++) {
+				const a = args.sessions[i];
+				const b = args.sessions[j];
+				const overlaps = a.startTime < b.endTime && a.endTime > b.startTime;
+				if (overlaps) {
+					throw new Error(
+						`Time conflict: "${a.title}" and "${b.title}" have overlapping times. Please adjust the schedule.`,
+					);
+				}
 			}
 		}
 
@@ -131,6 +244,29 @@ export const createSession = mutation({
 			throw new Error(
 				"Cannot create sessions for an event that has already ended",
 			);
+		}
+
+		const existingSessions = await ctx.db
+			.query("sessions")
+			.withIndex("by_event", (q) => q.eq("eventId", args.eventId))
+			.collect();
+
+		for (const existing of existingSessions) {
+			const overlaps =
+				args.startTime < existing.endTime && args.endTime > existing.startTime;
+			if (overlaps) {
+				const existingTime = `${formatTimeForError(existing.startTime)} - ${formatTimeForError(existing.endTime)} on ${formatDateForError(existing.startTime)}`;
+				const sessionDuration = args.endTime - args.startTime;
+				const suggestion = findNextAvailableSlot(
+					sessionDuration,
+					existingSessions,
+					event.endsAt,
+					existing,
+				);
+				throw new Error(
+					`Time conflict: "${args.title}" overlaps with "${existing.title}" (${existingTime}). ${suggestion}.`,
+				);
+			}
 		}
 
 		//creating the session

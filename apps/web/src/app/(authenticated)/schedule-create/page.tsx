@@ -88,10 +88,31 @@ function createEmptySession(
 	eventRange: EventDateRange | null,
 	isExpanded = true,
 ): SessionFormData {
-	// Default to event start time if available
+	const now = new Date();
+	const minutes = now.getMinutes();
+	const roundedStartHour = minutes >= 30 ? now.getHours() + 1 : now.getHours();
+
 	if (eventRange) {
-		const start = getTimesFromTimestamp(eventRange.startsAt);
-		const endTime = new Date(eventRange.startsAt + 60 * 60 * 1000); // 1 hour later
+		const eventStart = new Date(eventRange.startsAt);
+		const eventEnd = new Date(eventRange.endsAt);
+
+		let defaultDate: Date;
+		if (now < eventStart) {
+			defaultDate = eventStart;
+		} else if (now > eventEnd) {
+			defaultDate = eventEnd;
+		} else {
+			defaultDate = now;
+		}
+
+		const startDate = new Date(defaultDate);
+		if (now >= eventStart && now <= eventEnd) {
+			startDate.setHours(roundedStartHour, 0, 0, 0);
+		} else {
+			startDate.setHours(eventStart.getHours(), eventStart.getMinutes(), 0, 0);
+		}
+
+		const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
 
 		return {
 			id: generateId(),
@@ -100,25 +121,19 @@ function createEmptySession(
 			location: "",
 			speaker: "",
 			type: "talk",
-			startDate: start.date,
-			endDate: endTime,
-			startTime: start.time,
-			endTime: `${String(endTime.getHours()).padStart(2, "0")}:${String(endTime.getMinutes()).padStart(2, "0")}`,
+			startDate,
+			endDate,
+			startTime: `${String(startDate.getHours()).padStart(2, "0")}:${String(startDate.getMinutes()).padStart(2, "0")}`,
+			endTime: `${String(endDate.getHours()).padStart(2, "0")}:${String(endDate.getMinutes()).padStart(2, "0")}`,
 			isExpanded,
 		};
 	}
 
-	// Fallback to current time
-	const now = new Date();
-	const minutes = now.getMinutes();
-	const startHours = minutes >= 30 ? now.getHours() + 1 : now.getHours();
-	const endHours = startHours + 1;
-
 	const startDate = new Date();
-	startDate.setHours(startHours, 0, 0, 0);
+	startDate.setHours(roundedStartHour, 0, 0, 0);
 
 	const endDate = new Date();
-	endDate.setHours(endHours, 0, 0, 0);
+	endDate.setHours(roundedStartHour + 1, 0, 0, 0);
 
 	return {
 		id: generateId(),
@@ -129,8 +144,8 @@ function createEmptySession(
 		type: "talk",
 		startDate,
 		endDate,
-		startTime: `${String(startHours % 24).padStart(2, "0")}:00`,
-		endTime: `${String(endHours % 24).padStart(2, "0")}:00`,
+		startTime: `${String(roundedStartHour % 24).padStart(2, "0")}:00`,
+		endTime: `${String((roundedStartHour + 1) % 24).padStart(2, "0")}:00`,
 		isExpanded,
 	};
 }
@@ -404,9 +419,24 @@ function CreateScheduleContent() {
 			);
 			router.push(`/events/${eventId}?tab=schedule`);
 		} catch (error) {
-			toast.error(
-				error instanceof Error ? error.message : "Failed to create sessions",
-			);
+			let errorMessage = "Failed to create sessions";
+			if (error instanceof Error) {
+				let message = error.message;
+
+				if (message.includes("Uncaught Error:")) {
+					const startIdx =
+						message.indexOf("Uncaught Error:") + "Uncaught Error:".length;
+					const endIdx = message.indexOf(" at handler");
+					if (endIdx > startIdx) {
+						message = message.slice(startIdx, endIdx).trim();
+					} else {
+						message = message.slice(startIdx).trim();
+					}
+				}
+
+				errorMessage = message;
+			}
+			toast.error(errorMessage);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -506,9 +536,14 @@ function SessionCard({
 	const eventStartDay = startOfDay(new Date(eventRange.startsAt));
 	const eventEndDay = endOfDay(new Date(eventRange.endsAt));
 
-	// Disable dates outside event range
+	// Disable dates outside event range and past dates
+	const todayStart = startOfDay(new Date());
 	const isDateDisabled = (date: Date) => {
-		return isBefore(date, eventStartDay) || isAfter(date, eventEndDay);
+		return (
+			isBefore(date, eventStartDay) ||
+			isAfter(date, eventEndDay) ||
+			isBefore(date, todayStart)
+		);
 	};
 
 	if (!session.isExpanded) {
