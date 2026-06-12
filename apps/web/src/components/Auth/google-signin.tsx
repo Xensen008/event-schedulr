@@ -39,7 +39,7 @@ export default function GoogleSignIn({ label }: { label: string }) {
 		<Button
 			onClick={handleGoogleSignIn}
 			disabled={loading}
-			className="flex h-11 w-full items-center justify-center gap-2 rounded-2xl bg-[#6366f1] text-white transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60"
+			className="flex h-11 w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/10 text-white transition-all duration-200 hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-60"
 		>
 			{loading ? (
 				<>

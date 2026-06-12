@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { LogoMark } from "@/components/landing/logo";
 
 interface WelcomeMessageProps {
 	mode: "signin" | "signup";
@@ -30,15 +31,9 @@ export default function WelcomeMessage({ mode }: WelcomeMessageProps) {
 			className="max-w-md space-y-10 text-left text-white"
 		>
 			{/* Logo / Icon */}
-			<motion.div variants={item} className="flex items-center space-x-4">
-				<div className="flex h-20 w-20 items-center justify-center rounded-xl bg-transparent backdrop-blur">
-					<img
-						className="absolute top-0 h-15"
-						src="https://cdn.discordapp.com/attachments/843057977023004692/1461325669769150736/WhatsApp_Image_2026-01-15_at_16.47.20-removebg-preview_1_-_Edited_1.png?ex=696a2515&is=6968d395&hm=7069116d20d5579ab03b1b6893cf39b95a3d8bb5e0ef470545755aabf7d79462&"
-						alt="logo"
-					/>
-				</div>
-				<span className="font-semibold text-xl tracking-wide">
+			<motion.div variants={item} className="flex items-center space-x-3">
+				<LogoMark className="h-11 w-11" />
+				<span className="font-display font-semibold text-xl tracking-wide">
 					EventSchedulr
 				</span>
 			</motion.div>

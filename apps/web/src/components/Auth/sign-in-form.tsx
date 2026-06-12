@@ -51,10 +51,10 @@ export default function SignInForm({
 
 	return (
 		<div className="flex min-h-screen items-center justify-center px-4 py-12 text-light-text-muted">
-			<div className="w-full max-w-lg">
+			<div className="w-full max-w-md">
 				<div className="rounded-2xl border border-border/50 bg-bg-card p-8 shadow-md backdrop-blur-sm">
 					<div className="mb-8 text-center">
-						<h1 className="text-balance font-bold text-3xl text-foreground tracking-tight">
+						<h1 className="text-balance font-bold text-3xl text-white tracking-tight">
 							Welcome back
 						</h1>
 						<p className="mt-2 text-muted-foreground text-sm">
@@ -143,7 +143,7 @@ export default function SignInForm({
 							{(state) => (
 								<Button
 									type="submit"
-									className="h-11 w-full rounded-lg bg-light-bg-card font-semibold text-primary shadow-md transition-all hover:shadow-lg disabled:opacity-50"
+									className="h-11 w-full rounded-xl bg-primary font-semibold text-primary-foreground shadow-[0_4px_24px_-6px_rgba(45,212,191,0.5)] transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
 									disabled={!state.canSubmit || state.isSubmitting}
 								>
 									{state.isSubmitting ? (

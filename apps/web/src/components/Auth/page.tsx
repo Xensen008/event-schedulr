@@ -10,10 +10,15 @@ export default function AuthPage() {
 	const [isSignUp, setIsSignUp] = useState(true);
 
 	return (
-		<div className="eve relative flex min-h-screen overflow-hidden">
+		<div className="landing eve relative flex min-h-screen overflow-hidden">
+			<div className="aurora" />
+			<div className="grid-texture absolute inset-0" />
+			<div className="noise-overlay" />
 			{/* FORM PANEL */}
 			<motion.div
-				className="absolute inset-y-0 z-10 flex w-full items-center justify-center p-6 lg:w-1/2 lg:p-12"
+				className={`absolute inset-y-0 z-10 flex w-full items-center justify-center p-6 lg:w-1/2 lg:p-10 ${
+					isSignUp ? "lg:justify-end" : "lg:justify-start"
+				}`}
 				animate={{
 					x: isSignUp ? "0%" : "100%",
 				}}
@@ -33,7 +38,9 @@ export default function AuthPage() {
 
 			{/* WELCOME PANEL */}
 			<motion.div
-				className="absolute inset-y-0 flex w-full items-center justify-center p-12 lg:w-1/2"
+				className={`absolute inset-y-0 flex w-full items-center justify-center p-12 lg:w-1/2 lg:p-10 ${
+					isSignUp ? "lg:justify-start" : "lg:justify-end"
+				}`}
 				animate={{
 					x: isSignUp ? "100%" : "0%",
 				}}

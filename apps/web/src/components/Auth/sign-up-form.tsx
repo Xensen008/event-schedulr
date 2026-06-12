@@ -52,10 +52,10 @@ export default function SignUpForm({
 
 	return (
 		<div className="flex min-h-screen items-center justify-center px-4 py-12 text-light-text-muted">
-			<div className="flex w-full max-w-lg flex-col items-center justify-center rounded-2xl border border-border/50 bg-bg-card bg-card p-8 shadow-md backdrop-blur-sm">
+			<div className="flex w-full max-w-md flex-col items-center justify-center rounded-2xl border border-border/50 bg-bg-card bg-card p-8 shadow-md backdrop-blur-sm">
 				<div className="w-full max-w-md">
 					<div className="mb-4 text-center">
-						<h1 className="text-balance font-bold text-3xl tracking-tight">
+						<h1 className="text-balance font-bold text-3xl text-white tracking-tight">
 							Create your account
 						</h1>
 						<p className="mt-2 text-sm">
@@ -201,12 +201,12 @@ export default function SignUpForm({
 									type="submit"
 									disabled={!state.canSubmit || state.isSubmitting}
 									className={
-										"h-11 w-full rounded-lg bg-light-bg-card font-semibold text-primary shadow-md transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+										"h-11 w-full rounded-xl bg-primary font-semibold text-primary-foreground shadow-[0_4px_24px_-6px_rgba(45,212,191,0.5)] transition-all duration-200 hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
 									}
 								>
 									{state.isSubmitting ? (
 										<div className="flex items-center justify-center gap-2">
-											<span className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+											<span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
 											<span>Creating account...</span>
 										</div>
 									) : (
