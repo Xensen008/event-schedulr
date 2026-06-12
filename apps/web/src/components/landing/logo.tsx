@@ -1,0 +1,40 @@
+export function LogoMark({ className }: { className?: string }) {
+	return (
+		<svg
+			viewBox="0 0 40 40"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			className={className}
+			role="img"
+			aria-label="EventSchedulr logo"
+		>
+			<title>EventSchedulr logo</title>
+			<defs>
+				<linearGradient id="logo-g" x1="0" y1="0" x2="40" y2="40">
+					<stop stopColor="#2dd4bf" />
+					<stop offset="1" stopColor="#0d9488" />
+				</linearGradient>
+			</defs>
+			<rect width="40" height="40" rx="11" fill="url(#logo-g)" />
+			<rect
+				x="8.5"
+				y="10.5"
+				width="23"
+				height="21"
+				rx="5"
+				stroke="white"
+				strokeWidth="2.4"
+			/>
+			<path
+				d="M14 7.5v5M26 7.5v5"
+				stroke="white"
+				strokeWidth="2.4"
+				strokeLinecap="round"
+			/>
+			<path
+				d="M21.6 17.5 17 22.6h3.2l-1.8 4.9 4.6-5.6h-3.1l1.7-4.4Z"
+				fill="white"
+			/>
+		</svg>
+	);
+}
