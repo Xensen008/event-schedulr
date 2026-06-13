@@ -1,7 +1,7 @@
-import { Bell, CalendarCheck2, Download, Smartphone, Vote } from "lucide-react";
+import { Bell, CalendarCheck2, Smartphone, Vote } from "lucide-react";
+import { DownloadAppCta } from "@/components/landing/download-app-cta";
 import { PhoneMock } from "@/components/landing/phone-mock";
 import { Reveal } from "@/components/landing/reveal";
-import { ANDROID_APK_URL } from "@/lib/links";
 
 const highlights = [
 	{
@@ -62,18 +62,7 @@ export default function MobileApp() {
 						))}
 					</div>
 					<div className="mt-10 flex flex-wrap items-center gap-4">
-						<a
-							href={ANDROID_APK_URL}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-3 font-semibold text-white shadow-[0_8px_40px_-8px_rgba(45,212,191,0.6)] transition-all hover:shadow-[0_8px_50px_-6px_rgba(34,211,238,0.75)]"
-						>
-							<Download className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-							Download for Android
-							<span className="rounded-full bg-black/20 px-2 py-0.5 font-mono text-[10px] text-white/80">
-								.apk
-							</span>
-						</a>
+						<DownloadAppCta variant="button" />
 						<span className="text-sm text-white/40">iOS build coming soon</span>
 					</div>
 				</Reveal>

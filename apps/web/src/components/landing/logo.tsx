@@ -1,10 +1,17 @@
-export function LogoMark({ className }: { className?: string }) {
+export function LogoMark({
+	className,
+	style,
+}: {
+	className?: string;
+	style?: React.CSSProperties;
+}) {
 	return (
 		<svg
 			viewBox="0 0 40 40"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			className={className}
+			style={style}
 			role="img"
 			aria-label="EventSchedulr logo"
 		>
