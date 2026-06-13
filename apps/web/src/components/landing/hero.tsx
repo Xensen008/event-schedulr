@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DashboardMock } from "@/components/landing/dashboard-mock";
 import { PhoneMock } from "@/components/landing/phone-mock";
+import { ANDROID_APK_URL } from "@/lib/links";
 
 const easing = [0.21, 0.65, 0.36, 1] as const;
 
@@ -89,6 +90,22 @@ export default function Hero() {
 						</button>
 					</form>
 				</motion.div>
+
+				<motion.a
+					href={ANDROID_APK_URL}
+					target="_blank"
+					rel="noopener noreferrer"
+					initial={{ opacity: 0, y: 16 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8, delay: 0.38 }}
+					className="group mt-5 flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/60 backdrop-blur transition-colors hover:border-teal-400/40 hover:text-white"
+				>
+					<Download className="h-4 w-4 text-teal-300 transition-transform group-hover:-translate-y-0.5" />
+					Download the Android app
+					<span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[10px] text-white/50">
+						.apk
+					</span>
+				</motion.a>
 
 				<motion.div
 					initial={{ opacity: 0 }}
