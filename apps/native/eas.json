@@ -11,11 +11,20 @@
 			"distribution": "internal",
 			"android": {
 				"buildType": "apk"
+			},
+			"env": {
+				"EXPO_PUBLIC_CONVEX_URL": "https://quixotic-hound-619.convex.cloud",
+				"EXPO_PUBLIC_CONVEX_SITE_URL": "https://quixotic-hound-619.convex.site"
 			}
 		},
 		"production": {
 			"android": {
 				"buildType": "app-bundle"
+			},
+			"autoIncrement": true,
+			"env": {
+				"EXPO_PUBLIC_CONVEX_URL": "https://quixotic-hound-619.convex.cloud",
+				"EXPO_PUBLIC_CONVEX_SITE_URL": "https://quixotic-hound-619.convex.site"
 			}
 		}
 	},
